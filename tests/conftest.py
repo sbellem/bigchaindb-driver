@@ -8,6 +8,11 @@ from bigchaindb_common.transaction import Condition, Fulfillment, Transaction
 from cryptoconditions import Ed25519Fulfillment
 
 
+BDB_HOST_1 = environ.get('BDB_HOST_1', 'bdb1')
+BDB_HOST_2 = environ.get('BDB_HOST_2', 'bdb2')
+BDB_HOST_3 = environ.get('BDB_HOST_3', 'bdb3')
+
+
 @fixture
 def alice_privkey():
     return 'CT6nWhSyE7dF2znpx3vwXuceSrmeMy9ChBfi9U92HMSP'
@@ -47,8 +52,44 @@ def bdb_host():
 
 
 @fixture
-def bdb_node(bdb_host):
-    return 'http://{}:9984/api/v1'.format(bdb_host)
+def bdb_host_1():
+    return environ.get('BDB_HOST_1', 'bdb1')
+
+
+@fixture
+def bdb_host_2():
+    return environ.get('BDB_HOST_2', 'bdb2')
+
+
+@fixture
+def bdb_host_3():
+    return environ.get('BDB_HOST_3', 'bdb3')
+
+
+@fixture
+def bdb_node(request, bdb_host):
+    host = request.param if request.param else bdb_host
+    return 'http://{}:9984/api/v1'.format(host)
+
+
+@fixture
+def bdb_node_1(bdb_host_1):
+    return 'http://{}:9984/api/v1'.format(bdb_host_1)
+
+
+@fixture
+def bdb_node_2(bdb_host_2):
+    return 'http://{}:9984/api/v1'.format(bdb_host_2)
+
+
+@fixture
+def bdb_node_3(bdb_host_3):
+    return 'http://{}:9984/api/v1'.format(bdb_host_3)
+
+
+@fixture(params=(BDB_HOST_1, BDB_HOST_2, BDB_HOST_3))
+def cluster_node(request):
+    return 'http://{}:9984/api/v1'.format(request.param)
 
 
 @fixture

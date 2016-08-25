@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from time import sleep
+
 from pytest import mark, raises
 from responses import RequestsMock
 
@@ -115,5 +117,7 @@ def test_transactions_transfer_without_signing_key(bdb_node):
 
 def test_retrieve(driver, persisted_transaction):
     txid = persisted_transaction['id']
+    sleep(2)
     tx = driver.transactions.retrieve(txid)
-    assert tx
+    assert tx['id'] == txid
+    assert 'transaction' in tx

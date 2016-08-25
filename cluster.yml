@@ -1,0 +1,87 @@
+version: '2'
+
+services:
+  driver:
+    build:
+      context: .
+      dockerfile: ./compose/driver/Dockerfile
+    volumes:
+      - ./docs:/usr/src/app/docs
+      - ./tests:/usr/src/app/tests
+      - ./bigchaindb_driver:/usr/src/app/bigchaindb_driver
+      - ./setup.py:/usr/src/app/setup.py
+    environment:
+      BDB_HOST: server
+      BDB_NODE_1: bdb1
+      BDB_NODE_2: bdb2
+      BDB_NODE_3: bdb3
+    command: py.test -v
+  rethinkdb:
+    image: rethinkdb
+    ports:
+      - "58585:8080"
+      - "28015"
+  server:
+    build: ./compose/server
+    environment:
+      BIGCHAINDB_DATABASE_HOST: rethinkdb
+      BIGCHAINDB_API_ENDPOINT: http://server:9984/api/v1
+      BIGCHAINDB_SERVER_BIND: 0.0.0.0:9984
+    ports:
+      - "9984"
+    command: bigchaindb start
+  # cluster config
+  rdb1:
+    image: rethinkdb
+    ports:
+      - "8080"
+      - "28015"
+      - "29015"
+    command: rethinkdb --bind all
+  bdb1:
+    build:
+      context: .
+      dockerfile: ./compose/server/Dockerfile-node1
+    environment:
+      BIGCHAINDB_DATABASE_HOST: rdb1
+      BIGCHAINDB_API_ENDPOINT: http://bdb1:9984/api/v1
+      BIGCHAINDB_SERVER_BIND: 0.0.0.0:9984
+    ports:
+      - "9984"
+    command: bigchaindb start
+  rdb2:
+    image: rethinkdb
+    ports:
+      - "8080"
+      - "28015"
+      - "29015"
+    command: rethinkdb --join rdb1:29015 --bind all
+  bdb2:
+    build:
+      context: .
+      dockerfile: ./compose/server/Dockerfile-node2
+    environment:
+      BIGCHAINDB_DATABASE_HOST: rdb2
+      BIGCHAINDB_API_ENDPOINT: http://bdb2:9984/api/v1
+      BIGCHAINDB_SERVER_BIND: 0.0.0.0:9984
+    ports:
+      - "9984"
+    command: bigchaindb start
+  rdb3:
+    image: rethinkdb
+    ports:
+      - "8080"
+      - "28015"
+      - "29015"
+    command: rethinkdb --join rdb1:29015 --bind all
+  bdb23:
+    build:
+      context: .
+      dockerfile: ./compose/server/Dockerfile-node3
+    environment:
+      BIGCHAINDB_DATABASE_HOST: rdb3
+      BIGCHAINDB_API_ENDPOINT: http://bdb3:9984/api/v1
+      BIGCHAINDB_SERVER_BIND: 0.0.0.0:9984
+    ports:
+      - "9984"
+    command: bigchaindb start
