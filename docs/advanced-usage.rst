@@ -10,7 +10,6 @@ cases such as escrow.
     * https://github.com/bigchaindb/bigchaindb/issues/664
     * https://github.com/bigchaindb/bigchaindb-driver/issues/108
     * https://github.com/bigchaindb/bigchaindb-driver/issues/110
-    * https://github.com/bigchaindb/bigchaindb-driver/issues/111
 
     are taken care of.
 
