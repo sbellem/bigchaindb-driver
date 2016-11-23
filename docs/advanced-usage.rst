@@ -1,6 +1,6 @@
-**************
-Advanced Usage
-**************
+***********************
+Advanced Usage Examples
+***********************
 
 This section has examples of using the Python Driver for more advanced use
 cases such as escrow.
