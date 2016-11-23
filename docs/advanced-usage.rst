@@ -497,14 +497,14 @@ You should see a message similar to:
     A signing key is missing!
     Public key EcRawy3Y22eAUSS94vLF8BVJi62wbqbD9iSUSUNU9wAA is not a pair to any of the private keys
 
-Notice that is ``bob``'s public key in the above message:
+Notice ``bob``'s public key in the above message:
 
 .. code-block:: python
 
     >>> bob.verifying_key
     'EcRawy3Y22eAUSS94vLF8BVJi62wbqbD9iSUSUNU9wAA'
 
-Same goes for ``alice``. Try it!
+And the same goes for ``alice``. Try it!
 
 Sending the transaction over to a BigchainDB node:
 
