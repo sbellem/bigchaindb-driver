@@ -53,8 +53,8 @@ digitally and can be assigned to a user. In BigchainDB, users are identified by
 their public key, and the data payload in a digital asset is represented using
 a generic `Python dict <https://docs.python.org/3.4/tutorial/datastructures.html#dictionaries>`_.
 
-In BigchainDB, only the federation nodes are allowed to create digital assets,
-by doing a special kind of transaction: a ``CREATE`` transaction.
+In BigchainDB, digital assets can be created by doing a special kind of
+transaction: a ``CREATE`` transaction.
 
 .. code-block:: python
 
