@@ -523,7 +523,7 @@ the :meth:`~bigchaindb_driver.BigchainDB.transactions.status` endpoint:
 Done!
 
 Happy, ``alice`` and ``bob`` have successfully transferred the ownership of
-their car to ``carol``, and go on exploring the countless galaxies of the
+their car to ``carol``, and can go on exploring the countless galaxies of the
 universe using their new teleportation skills.
 
 Crypto-Conditions (Advanced)
