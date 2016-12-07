@@ -19,6 +19,7 @@ BigchainDB Python Driver
    handcraft
    upgrading
    libref
+   arch
    aboutthedocs
    contributing
    authors
